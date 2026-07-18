@@ -1,0 +1,19 @@
+name: Feature Request
+description: Suggest a scenario, adapter, or workflow.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: Need
+      description: What demo workflow should this support?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: What would you like to see?
+    validations:
+      required: true
