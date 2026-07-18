@@ -1,0 +1,87 @@
+schema_version: "1"
+kind: project_management
+tenant:
+  slug: atlas-projects
+  name: Atlas Projects
+  plan: business
+  region: eu-west
+personas:
+  - slug: dana-admin
+    name: Dana Smith
+    role: Workspace Admin
+    permissions: [tenant:reset, records:read, records:write, tour:run]
+  - slug: keiko-pm
+    name: Keiko Tanaka
+    role: Product Manager
+    permissions: [projects:read, backlog:write, roadmap:read]
+  - slug: sam-engineer
+    name: Sam Wright
+    role: Engineering Lead
+    permissions: [tasks:read, tasks:write, blockers:write]
+  - slug: ines-design
+    name: Ines Martin
+    role: Design Lead
+    permissions: [tasks:read, research:read, comments:write]
+  - slug: theo-exec
+    name: Theo Brooks
+    role: Executive Sponsor
+    permissions: [reports:read, risks:read, exports:read]
+data:
+  records: 100
+  seed: 2026071802
+  start_date: 2026-02-01
+  timeline_days: 90
+timeline:
+  - day: 0
+    label: Roadmap planning
+    impact: Product ranks backlog themes.
+  - day: 21
+    label: Build sprint
+    impact: Engineering burns down implementation tasks.
+  - day: 45
+    label: Design validation
+    impact: Research notes shift priorities.
+  - day: 70
+    label: Launch readiness
+    impact: Executives inspect blockers and risks.
+tour:
+  - title: Open the program overview
+    actor: dana-admin
+    route: /
+    selector: "[data-testid='record-count']"
+    assertion: 100 records
+  - title: Review project personas
+    actor: dana-admin
+    route: /personas
+    selector: "[data-testid='personas-title']"
+    assertion: Personas
+  - title: Switch to product management
+    actor: keiko-pm
+    route: /personas
+    selector: "[data-testid='persona-keiko-pm']"
+    assertion: Product Manager
+  - title: Inspect work records
+    actor: sam-engineer
+    route: /records
+    selector: "[data-testid='records-title']"
+    assertion: Records
+  - title: Explain delivery timeline
+    actor: ines-design
+    route: /timeline
+    selector: "[data-testid='timeline-title']"
+    assertion: Timeline
+  - title: Confirm project scenario
+    actor: theo-exec
+    route: /
+    selector: "[data-testid='scenario-kind']"
+    assertion: project_management
+  - title: Run guided tour
+    actor: dana-admin
+    route: /tour
+    selector: "[data-testid='tour-title']"
+    assertion: Tour
+  - title: Confirm deterministic checksum
+    actor: theo-exec
+    route: /
+    selector: "[data-testid='checksum']"
+    assertion: Checksum

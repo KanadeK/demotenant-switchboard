@@ -1,0 +1,87 @@
+schema_version: "1"
+kind: support_desk
+tenant:
+  slug: beacon-support
+  name: Beacon Support
+  plan: scale
+  region: ap-southeast
+personas:
+  - slug: noah-admin
+    name: Noah Lee
+    role: Support Admin
+    permissions: [tenant:reset, records:read, records:write, tour:run]
+  - slug: aria-agent
+    name: Aria Kim
+    role: Tier One Agent
+    permissions: [tickets:read, tickets:reply, customers:read]
+  - slug: ben-escalation
+    name: Ben Carter
+    role: Escalation Manager
+    permissions: [tickets:read, escalations:write, reports:read]
+  - slug: maya-success
+    name: Maya Patel
+    role: Customer Success
+    permissions: [accounts:read, notes:write, tickets:read]
+  - slug: nina-qa
+    name: Nina Park
+    role: QA Analyst
+    permissions: [reports:read, tags:write, exports:read]
+data:
+  records: 100
+  seed: 2026071803
+  start_date: 2026-03-01
+  timeline_days: 45
+timeline:
+  - day: 0
+    label: Inbox spike
+    impact: New tickets arrive from multiple channels.
+  - day: 10
+    label: SLA pressure
+    impact: Escalations prioritize urgent accounts.
+  - day: 22
+    label: Quality review
+    impact: QA tags risky replies for coaching.
+  - day: 35
+    label: Success follow-up
+    impact: Customer success closes the loop.
+tour:
+  - title: Open the support overview
+    actor: noah-admin
+    route: /
+    selector: "[data-testid='record-count']"
+    assertion: 100 records
+  - title: Review support personas
+    actor: noah-admin
+    route: /personas
+    selector: "[data-testid='personas-title']"
+    assertion: Personas
+  - title: Switch to frontline agent
+    actor: aria-agent
+    route: /personas
+    selector: "[data-testid='persona-aria-agent']"
+    assertion: Tier One Agent
+  - title: Inspect ticket records
+    actor: ben-escalation
+    route: /records
+    selector: "[data-testid='records-title']"
+    assertion: Records
+  - title: Explain SLA timeline
+    actor: maya-success
+    route: /timeline
+    selector: "[data-testid='timeline-title']"
+    assertion: Timeline
+  - title: Confirm support scenario
+    actor: nina-qa
+    route: /
+    selector: "[data-testid='scenario-kind']"
+    assertion: support_desk
+  - title: Read guided tour
+    actor: noah-admin
+    route: /tour
+    selector: "[data-testid='tour-title']"
+    assertion: Tour
+  - title: Confirm deterministic checksum
+    actor: ben-escalation
+    route: /
+    selector: "[data-testid='checksum']"
+    assertion: Checksum

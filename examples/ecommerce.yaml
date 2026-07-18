@@ -1,0 +1,87 @@
+schema_version: "1"
+kind: ecommerce
+tenant:
+  slug: northstar-shop
+  name: Northstar Shop
+  plan: enterprise
+  region: us-east
+personas:
+  - slug: alex-admin
+    name: Alex Rivera
+    role: Admin
+    permissions: [tenant:reset, records:read, records:write, tour:run]
+  - slug: mina-ops
+    name: Mina Chen
+    role: Operations Lead
+    permissions: [orders:read, orders:update, inventory:read]
+  - slug: omar-finance
+    name: Omar Haddad
+    role: Finance Analyst
+    permissions: [orders:read, refunds:write, exports:read]
+  - slug: priya-support
+    name: Priya Nair
+    role: Support Manager
+    permissions: [customers:read, tickets:write, orders:read]
+  - slug: luca-marketing
+    name: Luca Rossi
+    role: Growth Marketer
+    permissions: [customers:read, campaigns:read, exports:read]
+data:
+  records: 100
+  seed: 2026071801
+  start_date: 2026-01-01
+  timeline_days: 60
+timeline:
+  - day: 0
+    label: Launch campaign
+    impact: Traffic increases and carts begin filling.
+  - day: 14
+    label: Fulfillment crunch
+    impact: Operations triages delayed shipments.
+  - day: 28
+    label: Refund review
+    impact: Finance reviews returns by channel.
+  - day: 42
+    label: Loyalty replay
+    impact: Marketing targets repeat buyers.
+tour:
+  - title: Open the tenant overview
+    actor: alex-admin
+    route: /
+    selector: "[data-testid='record-count']"
+    assertion: 100 records
+  - title: Review the persona roster
+    actor: alex-admin
+    route: /personas
+    selector: "[data-testid='personas-title']"
+    assertion: Personas
+  - title: Switch to operations context
+    actor: mina-ops
+    route: /personas
+    selector: "[data-testid='persona-mina-ops']"
+    assertion: Operations Lead
+  - title: Inspect order records
+    actor: mina-ops
+    route: /records
+    selector: "[data-testid='records-title']"
+    assertion: Records
+  - title: Verify timeline context
+    actor: omar-finance
+    route: /timeline
+    selector: "[data-testid='timeline-title']"
+    assertion: Timeline
+  - title: Confirm scenario type
+    actor: luca-marketing
+    route: /
+    selector: "[data-testid='scenario-kind']"
+    assertion: ecommerce
+  - title: Read the scripted tour
+    actor: priya-support
+    route: /tour
+    selector: "[data-testid='tour-title']"
+    assertion: Tour
+  - title: Return to checksum
+    actor: alex-admin
+    route: /
+    selector: "[data-testid='checksum']"
+    assertion: Checksum
