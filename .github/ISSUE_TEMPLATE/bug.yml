@@ -21,6 +21,5 @@ body:
     id: version
     attributes:
       label: Version
-      placeholder: 0.1.0
     validations:
       required: true

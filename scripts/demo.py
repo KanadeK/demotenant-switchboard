@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import time
 from pathlib import Path
 
@@ -34,16 +35,17 @@ def main() -> None:
             }
         )
     elapsed = time.perf_counter() - started
-    benchmark = ROOT / "docs" / "BENCHMARK.md"
-    benchmark.write_text(
-        "# Benchmark\n\n"
-        "Machine: local development environment used for release validation.\n\n"
-        f"Generated {len(EXAMPLES)} scenarios with 100 records each in {elapsed:.3f} seconds.\n\n"
-        "```json\n"
-        + json.dumps(results, indent=2, sort_keys=True)
-        + "\n```\n",
-        encoding="utf-8",
-    )
+    if os.environ.get("DEMOTENANT_SKIP_BENCHMARK_WRITE") != "1":
+        benchmark = ROOT / "docs" / "BENCHMARK.md"
+        benchmark.write_text(
+            "# Benchmark\n\n"
+            "Machine: local development environment used for release validation.\n\n"
+            f"Generated {len(EXAMPLES)} scenarios with 100 records each in {elapsed:.3f} seconds.\n\n"
+            "```json\n"
+            + json.dumps(results, indent=2, sort_keys=True)
+            + "\n```\n",
+            encoding="utf-8",
+        )
     print(json.dumps({"elapsed_seconds": round(elapsed, 3), "results": results}, sort_keys=True))
 
 

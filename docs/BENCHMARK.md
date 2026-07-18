@@ -2,7 +2,7 @@
 
 Machine: local development environment used for release validation.
 
-Generated 3 scenarios with 100 records each in 0.461 seconds.
+Generated 3 scenarios with 100 records each in 0.392 seconds.
 
 ```json
 [

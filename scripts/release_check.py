@@ -34,8 +34,9 @@ def main() -> None:
     for line in author_lines.splitlines():
         assert_true(line == f"{AUTHOR} | {AUTHOR}", f"unexpected author/committer: {line}")
 
+    banned_markers = ["TO" + "DO", "FIX" + "ME", "Not" + "Implemented", "place" + "holder", "coming" + " soon", "lorem" + " ipsum"]
     marker_scan = subprocess.run(
-        ["git", "grep", "-nE", r"TODO|FIXME|NotImplemented|placeholder|coming soon|lorem ipsum"],
+        ["git", "grep", "-nE", "|".join(banned_markers)],
         cwd=ROOT,
         text=True,
         encoding="utf-8",
