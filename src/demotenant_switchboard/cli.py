@@ -16,13 +16,10 @@ def _service() -> SwitchboardService:
     return SwitchboardService()
 
 
-@app.callback()
-def main(
-    version: Annotated[bool, typer.Option("--version", help="Show version and exit.")] = False,
-) -> None:
-    if version:
-        typer.echo(__version__)
-        raise typer.Exit()
+@app.command()
+def version() -> None:
+    """Show the package version."""
+    typer.echo(__version__)
 
 
 @app.command()
@@ -92,3 +89,7 @@ def checksum(
     """Print the generated dataset checksum."""
     result = _service().validate(output)
     typer.echo(str(result["checksum"]))
+
+
+if __name__ == "__main__":
+    app()
