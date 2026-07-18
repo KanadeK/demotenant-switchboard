@@ -1,5 +1,5 @@
 be9b1e3b44c4343a6691b214781999fe0e5ee5183499edbe09bce2504fd530f0  demotenant-switchboard-0.1.0-ecommerce-data.zip
 a280637999fbec82f8f164981d4f8f52a06887b5ddc0a8a46d1c485febac7766  demotenant-switchboard-0.1.0-project_management-data.zip
 49549887f112e7bd518a041a48d4dac7fc928489c062a1f48227fa961bb25387  demotenant-switchboard-0.1.0-support_desk-data.zip
-7e6b191b0677898cf3526dc07da13388e9ca0c6f13e06a0e9617c27350a8c615  demotenant_switchboard-0.1.0-py3-none-any.whl
-f6bc8779ae674d3f6cb4af04c63b79e8c3b6bdbddd430da81a99fd86c481f1ab  demotenant_switchboard-0.1.0.tar.gz
+aebf93df1e26f01d6ddb27e9fded51ad02d926ab988121f267482f99cc2d483f  demotenant_switchboard-0.1.0-py3-none-any.whl
+7ba63a2a6f07c9f437b3f112f6112656e52d0129b705ca1b160d78c7b7e5843c  demotenant_switchboard-0.1.0.tar.gz
