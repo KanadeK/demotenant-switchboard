@@ -1,0 +1,20 @@
+from pathlib import Path
+
+from playwright.sync_api import expect, sync_playwright
+
+
+def run() -> None:
+    html = Path(__file__).with_name("demo.html").resolve().as_uri()
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch(headless=True)
+        page = browser.new_page(viewport={"width": 1280, "height": 900})
+        page.goto(html)
+{% for step in tour %}
+        page.locator("[data-route='{{ step.route }}']").click()
+        expect(page.locator("{{ step.selector }}")).to_contain_text("{{ step.assertion }}")
+{% endfor %}
+        browser.close()
+
+
+if __name__ == "__main__":
+    run()

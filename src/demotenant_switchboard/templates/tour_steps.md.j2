@@ -1,0 +1,10 @@
+# {{ dataset.recipe.tenant.name }} Tour
+
+Dataset checksum: `{{ dataset.dataset_checksum }}`
+
+{% for step in tour %}
+{{ loop.index }}. **{{ step.title }}**  
+   Actor: `{{ step.actor }}`  
+   Route: `{{ step.route }}`  
+   Assertion: `{{ step.assertion }}`
+{% endfor %}

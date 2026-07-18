@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ dataset.recipe.tenant.name }} Demo</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; color: #16201c; background: #f8faf9; }
+    header { background: #12372a; color: white; padding: 24px; }
+    nav { display: flex; gap: 8px; flex-wrap: wrap; padding: 12px 24px; background: #d7ede2; }
+    button { border: 1px solid #7aa991; background: white; padding: 8px 12px; cursor: pointer; }
+    main { padding: 24px; display: grid; gap: 16px; }
+    section { display: none; }
+    section.active { display: block; }
+    table { border-collapse: collapse; width: 100%; background: white; }
+    th, td { border: 1px solid #d4ddd8; padding: 8px; text-align: left; }
+    .metric { display: inline-block; margin-right: 16px; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 data-testid="tenant-name">{{ dataset.recipe.tenant.name }}</h1>
+    <p data-testid="checksum">Checksum {{ dataset.dataset_checksum }}</p>
+  </header>
+  <nav>
+    <button data-route="/" type="button">Overview</button>
+    <button data-route="/personas" type="button">Personas</button>
+    <button data-route="/records" type="button">Records</button>
+    <button data-route="/timeline" type="button">Timeline</button>
+    <button data-route="/tour" type="button">Tour</button>
+  </nav>
+  <main>
+    <section id="overview" class="active">
+      <h2 data-testid="overview-title">Overview</h2>
+      <span class="metric" data-testid="scenario-kind">{{ dataset.recipe.kind.value }}</span>
+      <span class="metric" data-testid="record-count">{{ dataset.records | length }} records</span>
+    </section>
+    <section id="personas">
+      <h2 data-testid="personas-title">Personas</h2>
+      <ul>
+      {% for persona in dataset.recipe.personas %}
+        <li data-testid="persona-{{ persona.slug }}">{{ persona.name }} - {{ persona.role }}</li>
+      {% endfor %}
+      </ul>
+    </section>
+    <section id="records">
+      <h2 data-testid="records-title">Records</h2>
+      <table>
+        <thead><tr><th>ID</th><th>Owner</th><th>Status</th><th>Amount</th></tr></thead>
+        <tbody>
+        {% for record in dataset.records[:15] %}
+          <tr><td>{{ record.id }}</td><td>{{ record.owner }}</td><td>{{ record.status }}</td><td>{{ record.amount }}</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </section>
+    <section id="timeline">
+      <h2 data-testid="timeline-title">Timeline</h2>
+      <ol>
+      {% for event in dataset.recipe.timeline %}
+        <li>{{ event.label }}: {{ event.impact }}</li>
+      {% endfor %}
+      </ol>
+    </section>
+    <section id="tour">
+      <h2 data-testid="tour-title">Tour</h2>
+      <ol>
+      {% for step in dataset.recipe.tour %}
+        <li>{{ step.title }} - {{ step.assertion }}</li>
+      {% endfor %}
+      </ol>
+    </section>
+  </main>
+  <script>
+    const routes = {"/": "overview", "/personas": "personas", "/records": "records", "/timeline": "timeline", "/tour": "tour"};
+    document.querySelectorAll("button[data-route]").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll("main section").forEach((section) => section.classList.remove("active"));
+        document.getElementById(routes[button.dataset.route]).classList.add("active");
+      });
+    });
+  </script>
+</body>
+</html>
